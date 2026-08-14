@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Une question pour toi... 🙈</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #ffe6e9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+    h1 {
+      color: #d32f2f;
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      padding: 0 20px;
+    }
+    .buttons {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    #yesBtn {
+      background-color: #4caf50;
+      color: white;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+    #noBtn {
+      background-color: #f44336;
+      color: white;
+      box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MODIFIE TA QUESTION ICI SI TU VEUX -->
+  <h1 id="question">Tu veux aller au resto avec moi ce week-end ? 🙈</h1>
+
+  <div class="buttons">
+    <button id="yesBtn" onclick="celebrate()">Oui ! 💖</button>
+    <button id="noBtn" onclick="dodge()">Non 😢</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const question = document.getElementById('question');
+
+    const messages = [
+      "T'es sûr(e) ? 🥺",
+      "Vraiment sûr(e) ? 💔",
+      "Réfléchis bien... 🧐",
+      "Allez, s'il te plaît ! 😭",
+      "Tu n'as pas le choix de toute façon 😈"
+    ];
+
+    let count = 0;
+    let yesScale = 1;
+    let noScale = 1;
+
+    function dodge() {
+      // Change le texte du bouton Non
+      if (count < messages.length) {
+        noBtn.innerText = messages[count];
+      }
+      
+      // Fait rapetisser le bouton Non et grossir le bouton Oui
+      noScale -= 0.15;
+      yesScale += 0.25;
+
+      if (noScale <= 0.1) {
+        noBtn.style.display = 'none'; // Le bouton disparait s'il devient trop petit
+      } else {
+        noBtn.style.transform = `scale(${noScale})`;
+      }
+
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      // Déplace le bouton Non aléatoirement sur l'écran
+      const x = Math.random() * (window.innerWidth - 150) - (window.innerWidth / 2 - 75);
+      const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2 - 50);
+      
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+
+      count++;
+    }
+
+    function celebrate() {
+      question.innerText = "Trop bien ! J'avais hâte que tu dises oui ! 🎉❤️";
+      document.querySelector('.buttons').innerHTML = "<h2 style='color: #e91e63;'>C'est un rendez-vous ! 🥰</h2>";
+    }
+  </script>
+</body>
+</html>
